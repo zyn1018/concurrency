@@ -6,14 +6,17 @@ import java.util.concurrent.*;
 
 @Slf4j
 @ThreadSafe
-public class CopyOnWriteArraySetExample {
+/**
+ * TreeSet对应的线程安全类
+ */
+public class ConcurrentSkipListSetExample {
     //请求总数
     private static int clientTotal = 5000;
 
     //并发执行的线程数
     private static int threadTotal = 200;
 
-    private static CopyOnWriteArraySet<Integer> set = new CopyOnWriteArraySet<>();
+    private static ConcurrentSkipListSet<Integer> set = new ConcurrentSkipListSet<>();
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();

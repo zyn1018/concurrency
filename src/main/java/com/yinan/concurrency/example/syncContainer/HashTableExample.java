@@ -1,6 +1,6 @@
-package com.yinan.concurrency.example.sync;
+package com.yinan.concurrency.example.syncContainer;
 
-import com.yinan.concurrency.annotations.NotThreadSafe;
+import com.yinan.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Hashtable;
@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 @Slf4j
-@NotThreadSafe
+@ThreadSafe
 public class HashTableExample {
     //请求总数
     private static int clientTotal = 5000;

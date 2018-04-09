@@ -1,25 +1,24 @@
-package com.yinan.concurrency.example.commonUnsafe;
+package com.yinan.concurrency.example.syncContainer;
 
-import com.google.common.collect.Lists;
-import com.yinan.concurrency.annotations.NotThreadSafe;
+import com.yinan.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 @Slf4j
-@NotThreadSafe
-public class ArrayListExample {
+@ThreadSafe
+public class VectorExample {
     //请求总数
     private static int clientTotal = 5000;
 
     //并发执行的线程数
     private static int threadTotal = 200;
 
-    private static List<Integer> list = Lists.newArrayList();
+    private static Vector<Integer> vector = new Vector<>();
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -39,10 +38,10 @@ public class ArrayListExample {
         }
         countDownLatch.await();
         executorService.shutdown();
-        log.info("List size = {}", list.size());
+        System.out.println(vector.size());
     }
 
     private static void update() {
-        list.add(1);
+        vector.add(1);
     }
 }

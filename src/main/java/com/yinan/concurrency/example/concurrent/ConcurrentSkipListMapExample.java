@@ -8,14 +8,14 @@ import java.util.concurrent.*;
 
 @Slf4j
 @ThreadSafe
-public class ConcurrentHashMapExample {
+public class ConcurrentSkipListMapExample {
     //请求总数
     private static int clientTotal = 5000;
 
     //并发执行的线程数
     private static int threadTotal = 200;
 
-    private static Map<Integer, Integer> map = new ConcurrentHashMap<>();
+    private static Map<Integer, Integer> map = new ConcurrentSkipListMap<>();
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();

@@ -1,6 +1,6 @@
 package com.yinan.concurrency.example.count;
 
-import com.yinan.concurrency.annotations.NotThreadSafe;
+import com.yinan.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CountDownLatch;
@@ -9,8 +9,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 @Slf4j
-@NotThreadSafe
-public class CountExampleInit {
+@ThreadSafe
+public class CountExampleSync {
     //请求总数
     private static int clientTotal = 5000;
 
@@ -40,7 +40,7 @@ public class CountExampleInit {
         log.info("count=" + count);
     }
 
-    private static void add() {
+    private synchronized static void add() {
         count++;
     }
 }

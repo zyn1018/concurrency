@@ -1,7 +1,7 @@
 package com.yinan.concurrency.example.commonUnsafe;
 
 
-import com.yinan.concurrency.annotations.NotThreadSafe;
+import com.yinan.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.SimpleDateFormat;
@@ -11,14 +11,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 @Slf4j
-@NotThreadSafe
-public class DateFormatExample1 {
+@ThreadSafe
+/**
+ * 线程封闭：定义局部变量
+ */
+public class DateFormatExample2 {
     //请求总数
     private static int clientTotal = 5000;
 
     //并发执行的线程数
     private static int threadTotal = 200;
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -42,7 +44,8 @@ public class DateFormatExample1 {
 
     private static void update() {
         try {
-            simpleDateFormat.parse("20180208");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            simpleDateFormat.parse("2018-02-08");
         } catch (Exception e) {
             log.info("parse exception", e);
         }

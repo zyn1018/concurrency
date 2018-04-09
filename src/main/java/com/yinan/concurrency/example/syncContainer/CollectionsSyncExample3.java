@@ -1,24 +1,26 @@
 package com.yinan.concurrency.example.syncContainer;
 
-import com.yinan.concurrency.annotations.NotThreadSafe;
+import com.yinan.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Hashtable;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 @Slf4j
-@NotThreadSafe
-public class HashTableExample {
+@ThreadSafe
+public class CollectionsSyncExample3 {
     //请求总数
     private static int clientTotal = 5000;
 
     //并发执行的线程数
     private static int threadTotal = 200;
 
-    private static Hashtable<Integer, Integer> table = new Hashtable<>();
+    private static Map<Integer, Integer> map = Collections.synchronizedMap(new HashMap<>());
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -39,10 +41,10 @@ public class HashTableExample {
         }
         countDownLatch.await();
         executorService.shutdown();
-        log.info("Set size = {}", table.size());
+        log.info("Set size = {}", map.size());
     }
 
     private static void update(int i) {
-        table.put(i, i);
+        map.put(i, i);
     }
 }

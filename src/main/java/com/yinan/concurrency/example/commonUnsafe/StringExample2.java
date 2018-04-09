@@ -1,6 +1,6 @@
 package com.yinan.concurrency.example.commonUnsafe;
 
-import com.yinan.concurrency.annotations.NotThreadSafe;
+import com.yinan.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CountDownLatch;
@@ -9,15 +9,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 @Slf4j
-@NotThreadSafe
-public class StringExample1 {
+@ThreadSafe
+public class StringExample2 {
     //请求总数
     private static int clientTotal = 5000;
 
     //并发执行的线程数
     private static int threadTotal = 200;
 
-    private static StringBuilder stringBuilder = new StringBuilder();
+    private static StringBuffer stringBuffer = new StringBuffer();
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -37,10 +37,10 @@ public class StringExample1 {
         }
         countDownLatch.await();
         executorService.shutdown();
-        log.info("size=" + stringBuilder.length());
+        log.info("size=" + stringBuffer.length());
     }
 
     private static void update() {
-        stringBuilder.append("1");
+        stringBuffer.append("1");
     }
 }

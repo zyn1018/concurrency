@@ -1,9 +1,10 @@
-package com.yinan.concurrency.example.commonUnsafe;
+package com.yinan.concurrency.example.syncContainer;
 
 import com.google.common.collect.Sets;
-import com.yinan.concurrency.annotations.NotThreadSafe;
+import com.yinan.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -11,15 +12,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 @Slf4j
-@NotThreadSafe
-public class HashSetExample {
+@ThreadSafe
+public class CollectionsSyncExample2 {
     //请求总数
     private static int clientTotal = 5000;
 
     //并发执行的线程数
     private static int threadTotal = 200;
 
-    private static Set<Integer> set = Sets.newHashSet();
+    private static Set<Integer> set = Collections.synchronizedSet(Sets.newHashSet());
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();

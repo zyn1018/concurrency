@@ -5,8 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * 当synchronized关键字修饰代码块和方法时, 其作用于调用对象
+ */
 @Slf4j
-public class SyncBlock {
+public class SyncBlockAndMethod {
 
     //修饰一个代码块
     public void test1(int j) {
@@ -25,12 +28,12 @@ public class SyncBlock {
     }
 
     public static void main(String[] args) {
-        SyncBlock syncBlock = new SyncBlock();
-        SyncBlock syncBlock2 = new SyncBlock();
+        SyncBlockAndMethod syncBlockAndMethod = new SyncBlockAndMethod();
+        SyncBlockAndMethod syncBlockAndMethod2 = new SyncBlockAndMethod();
         ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.execute(
-                () -> syncBlock.test2(1));
+                () -> syncBlockAndMethod.test2(1));
         executorService.execute(
-                () -> syncBlock2.test2(2));
+                () -> syncBlockAndMethod2.test2(2));
     }
 }

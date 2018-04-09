@@ -1,4 +1,4 @@
-package com.yinan.concurrency.example.count;
+package com.yinan.concurrency.example.atomic;
 
 import com.yinan.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @ThreadSafe
-public class CountExampleAtomic {
+public class CountExampleAtomicInteger {
     //请求总数
     private static int clientTotal = 5000;
 

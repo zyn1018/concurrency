@@ -7,11 +7,11 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.LongAdder;
 
 @Slf4j
 @ThreadSafe
-public class CountExampleAtomicInteger {
+public class CountExampleAtomicLong {
     //请求总数
     private static int clientTotal = 5000;
 
@@ -19,7 +19,7 @@ public class CountExampleAtomicInteger {
     private static int threadTotal = 200;
 
     //CompareAndSwap!!
-    private static AtomicInteger count = new AtomicInteger(0);
+    private static LongAdder count = new LongAdder();
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -39,10 +39,10 @@ public class CountExampleAtomicInteger {
         }
         countDownLatch.await();
         executorService.shutdown();
-        log.info("count=" + count.get());
+        log.info("count=" + count);
     }
 
     private static void add() {
-        count.incrementAndGet();
+        count.increment();
     }
 }

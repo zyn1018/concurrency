@@ -1,21 +1,29 @@
 package com.yinan.concurrency.example.atomic;
 
 import com.yinan.concurrency.annotations.ThreadSafe;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 
 @Slf4j
 @ThreadSafe
-public class AtomicRef {
-    private static AtomicReference<Integer> count = new AtomicReference<>(0);
+public class AtomicRefFieldUpdater {
+    private static final AtomicIntegerFieldUpdater<AtomicRefFieldUpdater> updater = AtomicIntegerFieldUpdater.newUpdater(AtomicRefFieldUpdater.class, "count");
+
+    @Getter
+    private volatile int count = 100;
 
     public static void main(String[] args) {
-        count.compareAndSet(0,2);
-        count.compareAndSet(0,1);
-        count.compareAndSet(1,3);
-        count.compareAndSet(2,4);
-        count.compareAndSet(3,5);
-        log.info("count: {}", count.get());
+        AtomicRefFieldUpdater atomicRefFieldUpdater = new AtomicRefFieldUpdater();
+        if (updater.compareAndSet(atomicRefFieldUpdater, 100, 120)) {
+            log.info("update success 1, {}", atomicRefFieldUpdater.getCount());
+        }
+
+        if (updater.compareAndSet(atomicRefFieldUpdater, 100, 120)) {
+            log.info("update success 2, {}", atomicRefFieldUpdater.getCount());
+        } else {
+            log.info("update failed, {}", atomicRefFieldUpdater.getCount());
+        }
     }
 }

@@ -1,25 +1,21 @@
-package com.yinan.concurrency.example.commonUnsafe;
+package com.yinan.concurrency.example.concurrent;
 
-import com.google.common.collect.Maps;
-import com.yinan.concurrency.annotations.NotThreadSafe;
+import com.yinan.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
+import java.util.concurrent.*;
 
 @Slf4j
-@NotThreadSafe
-public class HashMapExample {
+@ThreadSafe
+public class ConcurrentHashMapExample {
     //请求总数
     private static int clientTotal = 5000;
 
     //并发执行的线程数
     private static int threadTotal = 200;
 
-    private static Map<Integer, Integer> map = Maps.newHashMap();
+    private static Map<Integer, Integer> map = new ConcurrentHashMap<>();
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();
